@@ -1,0 +1,25 @@
+name:                aoc2020-hs
+version:             0.1.0.0
+-- synopsis:
+-- description:
+homepage:            https://github.com/githubuser/aoc2020-hs#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Author name here
+maintainer:          example@example.com
+copyright:           2021 Author name here
+category:            Web
+build-type:          Simple
+cabal-version:       >=1.10
+extra-source-files:  README.md
+
+executable aoc2020-hs
+  hs-source-dirs:      src
+  main-is:             Main.hs
+  default-language:    Haskell2010
+  other-modules:       Day1 Day2 Day3 Day4 Day5 Day6 Day7 Day8 Day17
+  build-depends:       base >= 4.7 && < 5
+                     , containers
+                     , unordered-containers
+                     , array
+                     , vector
