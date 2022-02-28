@@ -1,10 +1,10 @@
-{-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# OPTIONS_GHC -Wno-missing-methods #-}
 module Day17 where
 
 import qualified Data.Set as Set
 import Data.Bool (bool)
+import Data.List (foldl')
 
 type Point = (Int, Int, Int, Int)
 type Space = [Point]
@@ -41,12 +41,13 @@ mkHyperCube field =
 
 -- a step in the conway hypercube
 step delta (HyperCube start end cells) =
-    let start' = start - delta
-        end' = end + delta
-        coords = mkSpace start' end'
+    let coords = mkSpace (start - delta) (end + delta)
         values = map willBeAlive coords
+        cells' = mkCells coords values
+        start' = foldl' (elemWise min) maxBound cells'
+        end' = foldl' (elemWise max) minBound cells'
     in
-        HyperCube start' end' (mkCells coords values)
+        HyperCube start' end' cells'
     where
         unitCube = mkSpace (-delta) delta
         isAlive = (`Set.member` cells)
@@ -55,6 +56,7 @@ step delta (HyperCube start end cells) =
             | isAlive point = k == 2 || k == 3  -- if cell is alive, it remains alive if exactly 2 or 3 of its neighbors are also alive.
             | otherwise     = k == 3            -- if cell is not alive, it becomes alive if exactly 3 of its neighbors are alive.
             where k = neighborsAlive point
+        elemWise f (a, b, c, d) (p, q, r, s) = (f a p, f b q, f c r, f d s)
 
 
 step3d = step (1, 1, 1, 0)
@@ -72,7 +74,6 @@ partOne = print . aliveCount . (!! 6) . iterate step3d =<< cube
 partTwo = print . aliveCount . (!! 6) . iterate step4d =<< cube
 -- Answer: 2084
 
-main = partOne
 ------------------------------------------------------
 -- showCube (HyperCube s e cells) = toString (bool '.' '#') s e cells
 
@@ -83,4 +84,9 @@ main = partOne
 --     in show (l,w,h) ++ '\n' : format str
 --     where
 --         chunks n = takeWhile (not . null) . unfoldr (Just . splitAt n)
+
+{- TODO:
+    1. set of points -> list of neighbor points -> neighbor counts -> next set of points
+    2. (u8, u8, u8, u8) -> u32
+-}
 ------------------------------------------------------
