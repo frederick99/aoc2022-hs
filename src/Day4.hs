@@ -1,4 +1,5 @@
 {-# LANGUAGE ViewPatterns #-}
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module Day4 where
 
 import Data.List ( foldl', groupBy )

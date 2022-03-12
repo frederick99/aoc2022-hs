@@ -3,7 +3,6 @@
 module Day17 where
 
 import qualified Data.Set as Set
-import Data.Bool (bool)
 import Data.List (foldl')
 
 type Point = (Int, Int, Int, Int)
@@ -13,18 +12,16 @@ instance Num Point where
     (a,b,c,d) + (p,q,r,s) = (a+p,b+q,c+r,d+s)
     negate (a,b,c,d) = (-a,-b,-c,-d)
 
-isOrigin :: Point -> Bool
-isOrigin (x, y, z, w) = x == 0 && y == 0 && z == 0 && w == 0
 
 mkSpace :: Point -> Point -> Space
 mkSpace (sx, sy, sz, sw) (ex, ey, ez, ew) = (,,,) <$> [sx..ex] <*> [sy..ey] <*> [sz..ez] <*> [sw..ew]
 
 neighbors :: Space -> Point -> [Point]
-neighbors deltas (x, y, z, w) = [(x + dx, y + dy, z + dz, w + dw) | p@(dx, dy, dz, dw) <- deltas, not (isOrigin p)]
+neighbors deltas point = [point + d | d <- deltas, d /= (0, 0, 0, 0)]
 
 
 data HyperCube = HyperCube { start :: Point
-                           , end :: Point
+                           , end   :: Point
                            , cells :: Set.Set Point
                            }
 
@@ -45,7 +42,7 @@ step delta (HyperCube start end cells) =
         values = map willBeAlive coords
         cells' = mkCells coords values
         start' = foldl' (elemWise min) maxBound cells'
-        end' = foldl' (elemWise max) minBound cells'
+        end'   = foldl' (elemWise max) minBound cells'
     in
         HyperCube start' end' cells'
     where
@@ -75,17 +72,9 @@ partTwo = print . aliveCount . (!! 6) . iterate step4d =<< cube
 -- Answer: 2084
 
 ------------------------------------------------------
--- showCube (HyperCube s e cells) = toString (bool '.' '#') s e cells
+-- chunks n = takeWhile (not . null) . unfoldr (Just . splitAt n)
 
--- toString f (sx, sy, sz) (ex, ey, ez) cells =
---     let l = ex - sx + 1; w = ey - sy + 1; h = ez - sz + 1
---         str = f <$> Map.elems cells
---         format = unlines . map unlines . chunks l . chunks w
---     in show (l,w,h) ++ '\n' : format str
---     where
---         chunks n = takeWhile (not . null) . unfoldr (Just . splitAt n)
-
-{- TODO:
+{- TODOs:
     1. set of points -> list of neighbor points -> neighbor counts -> next set of points
     2. (u8, u8, u8, u8) -> u32
 -}

@@ -1,6 +1,7 @@
 {-# LANGUAGE ViewPatterns #-}
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module Day8 where
+
 import qualified Data.Set as Set
 import qualified Data.Map as Map
 import Data.Maybe ( fromJust, isJust ) 

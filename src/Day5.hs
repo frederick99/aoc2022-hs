@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module Day5 where
 
 import Data.List ( foldl' )
@@ -22,7 +23,7 @@ missing list = expected - actual where
     actual = sum list
     first = minimum list
     last = maximum list
-    sumN n = n * succ n `div` 2
+    sumN n = n * (n + 1) `div` 2
 
 partTwo = seats >>= print . missing
 -- Answer: 743

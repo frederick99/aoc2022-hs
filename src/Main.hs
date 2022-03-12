@@ -9,7 +9,7 @@ import qualified Day6
 import qualified Day7
 import qualified Day8
 import qualified Day17
--- import qualified Day9
+import qualified Day9
 -- import qualified Day10
 -- import qualified Day11
 -- import qualified Day12
@@ -43,14 +43,13 @@ main = putStrLn "Advent of Code 2020 (frederick99_)"
   >> putStr "Day 7 (Part Two) - Ans: " >> Day7.partTwo
   >> putStr "Day 8 (Part One) - Ans: " >> Day8.partOne
   >> putStr "Day 8 (Part Two) - Ans: " >> Day8.partTwo
-  >> putStr "Day 17 (Part One) - Ans: " >> Day17.partOne
-  >> putStr "Day 17 (Part Two) - Ans: " >> Day17.partTwo
-  -- >> putStr "Day 9 (Part One) - Ans: " >> Day9.partOne
-  -- >> putStr "Day 9 (Part Two) - Ans: " >> Day9.partTwo
+  >> putStr "Day 9 (Part One) - Ans: " >> Day9.partOne
+  >> putStr "Day 9 (Part Two) - Ans: " >> Day9.partTwo
   -- >> putStr "Day 10 (Part One) - Ans: " >> Day10.partOne
   -- >> putStr "Day 10 (Part Two) - Ans: " >> Day10.partTwo
   -- >> putStr "Day 11 (Part One) - Ans: " >> Day11.partOne
-  -- >> putStr "Day 12 (Part One) - Ans: " >> partTwo
+  -- >> putStr "Day 11 (Part One) - Ans: " >> Day11.partTwo
+  -- >> putStr "Day 12 (Part One) - Ans: " >> Day12.partOne
   -- >> putStr "Day 12 (Part Two) - Ans: " >> Day12.partTwo
   -- >> putStr "Day 13 (Part One) - Ans: " >> Day13.partOne
   -- >> putStr "Day 13 (Part Two) - Ans: " >> Day13.partTwo
@@ -60,6 +59,8 @@ main = putStrLn "Advent of Code 2020 (frederick99_)"
   -- >> putStr "Day 15 (Part Two) - Ans: " >> Day15.partTwo
   -- >> putStr "Day 16 (Part One) - Ans: " >> Day16.partOne
   -- >> putStr "Day 16 (Part Two) - Ans: " >> Day16.partTwo
+  >> putStr "Day 17 (Part One) - Ans: " >> Day17.partOne
+  >> putStr "Day 17 (Part Two) - Ans: " >> Day17.partTwo
   -- >> putStr "Day 18 (Part One) - Ans: " >> Day18.partOne
   -- >> putStr "Day 18 (Part Two) - Ans: " >> Day18.partTwo
   -- >> putStr "Day 19 (Part One) - Ans: " >> Day19.partOne

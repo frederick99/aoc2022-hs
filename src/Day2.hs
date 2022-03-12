@@ -1,4 +1,5 @@
 module Day2 where
+
 import Data.Char ( isDigit )
 
 data Policy = Policy { letter :: Char
