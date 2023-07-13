@@ -2,8 +2,8 @@
 {-# OPTIONS_GHC -Wno-missing-methods #-}
 module Day17 where
 
-import qualified Data.Set as Set
 import Data.List (foldl')
+import qualified Data.Set as Set
 
 type Point = (Int, Int, Int, Int)
 type Space = [Point]

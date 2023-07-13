@@ -5,7 +5,7 @@ import Data.Char ( isDigit )
 data Policy = Policy { letter :: Char
                      , minFreq :: Int
                      , maxFreq :: Int }
-type Password = String 
+type Password = String
 data Log = Log Policy Password
 
 instance Read Policy where
@@ -25,20 +25,19 @@ instance Read Log where
 ------------------------------------------------------
 policies = map read . lines <$> readFile "src/input/Day2.txt"
 
-isValid1 (Log (Policy letter low high) password)
-  = between low high freq
-  where freq = count (== letter) password
-
-count = (length .) . filter
+countIf pred = length . filter pred
 between a b x = a <= x && x <= b
 
-partOne = policies >>= print . count isValid1
+isValid1 (Log (Policy letter low high) password) = between low high freq
+  where freq = countIf (== letter) password
+
+partOne = policies >>= print . countIf isValid1
 -- Answer: 536
 
 isValid2 (Log (Policy letter a b) password) = k == 1
   where
-    k = count id (zipWith go [1..] password)
+    k = countIf id (zipWith go [1..] password)
     go pos elem = (pos == a || pos == b) && elem == letter
 
-partTwo = policies >>= print . count isValid2
+partTwo = policies >>= print . countIf isValid2
 -- Answer: 558

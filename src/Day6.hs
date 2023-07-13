@@ -4,8 +4,6 @@ import Data.List ( foldl', groupBy )
 import Data.Bits ( Bits((.&.), (.|.), shiftL, popCount) )
 import Data.Monoid ( Sum(Sum, getSum) )
 
-groups = splitOn "" . lines <$> readFile "src/input/Day6.txt"
-
 splitOn :: Eq a => a -> [a] -> [[a]]
 splitOn c = filter (notElem c) . groupBy (\a b -> (a == c) == (b == c))
 
@@ -13,6 +11,8 @@ sumMap f = getSum . foldMap (Sum . f)
 
 encode :: String -> Int
 encode = foldl' (\a r -> a .|. shiftL 1 (fromEnum r - fromEnum 'a')) 0
+
+groups = splitOn "" . lines <$> readFile "src/input/Day6.txt"
 
 --------------------------------------------------------
 unique = popCount . foldl' (.|.) 0 . map encode

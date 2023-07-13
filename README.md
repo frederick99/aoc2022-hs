@@ -1,1 +1,1 @@
-# aoc2020-hs
+# Advent of Code 2020 (Haskell)

@@ -2,9 +2,9 @@
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module Day8 where
 
+import Data.Maybe ( fromJust, isJust )
 import qualified Data.Set as Set
 import qualified Data.Map as Map
-import Data.Maybe ( fromJust, isJust ) 
 
 data Opcode  = NoOp | Incr | Jump
 type Arg     = Int
@@ -27,7 +27,8 @@ mkInstr (words -> [mkOp -> op, mkArg -> arg]) = Instr op arg
 mkContext instrs = Context (Map.fromList $ zip [0..] instrs) 0 0 mempty
 
 runInstr :: Context -> Maybe Context
-runInstr (Context code acc pc history) = run <$> Map.lookup pc code where
+runInstr (Context code acc pc history) = run <$> Map.lookup pc code
+  where
     run (Instr NoOp _) = Context code  acc      (pc + 1) history'
     run (Instr Incr x) = Context code (acc + x) (pc + 1) history'
     run (Instr Jump k) = Context code  acc      (pc + k) history'
@@ -45,14 +46,14 @@ instrs = map mkInstr . lines <$> readFile "src/input/Day8.txt"
 partOne = print . accumulator . snd
         . last  . takeWhile didn'tLoop
         . zip [0..] . execute =<< instrs
-    where didn'tLoop (i, length . instr_history -> n) = i == n
+  where didn'tLoop (i, length . instr_history -> n) = i == n
 -- Answer: 2080
 
 mutations (instr : rest)
-    | Instr NoOp arg <- instr = (Instr Jump arg : rest) : restMutations
-    | Instr Incr arg <- instr =                           restMutations
-    | Instr Jump arg <- instr = (Instr NoOp arg : rest) : restMutations
-    where restMutations = (instr :) <$> mutations rest
+  | Instr NoOp arg <- instr = (Instr Jump arg : rest) : restMutations
+  | Instr Incr arg <- instr =                           restMutations
+  | Instr Jump arg <- instr = (Instr NoOp arg : rest) : restMutations
+  where restMutations = (instr :) <$> mutations rest
 mutations [] = []
 
 partTwo = print . accumulator
